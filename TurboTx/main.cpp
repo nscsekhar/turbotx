@@ -55,7 +55,7 @@ int main(int argc, const char * argv[]) {
     
     sleep(1);
 
-    std::cout << "Creating turbotx pthread"<< std::endl;
+    std::cout << "Creating turbotx output pthread"<< std::endl;
     rc = pthread_create(&threads[2], nullptr, turbotx_output_inst.start, &turbotx_output_inst);
     
     if (rc){
