@@ -7,9 +7,63 @@
 //
 
 #include <iostream>
+#include <cstdlib>
+#include <pthread.h>
+#include "turbotx.hpp"
+
+#define NUM_THREADS 3
+
 
 int main(int argc, const char * argv[]) {
-    // insert code here...
-    std::cout << "Hello, World!\n";
-    return 0;
+
+    // Initialization
+
+    pthread_t threads[NUM_THREADS];
+    int rc;
+
+    // Create pthreads
+    //  - TurboTx
+    //  - Source
+    //  - Dest
+    
+    turbotx turbotx_inst = turbotx();
+    turbotx_input turbotx_input_inst = turbotx_input();
+    turbotx_output turbotx_output_inst = turbotx_output();
+
+    std::cout << "Creating turbotx pthread"<< std::endl;
+    rc = pthread_create(&threads[0], nullptr, turbotx_inst.start, &turbotx_inst);
+
+    if (rc){
+        std::cout << "Error:unable to create thread," << rc << std::endl;
+        exit(-1);
+    }
+    
+    sleep(1);
+    
+    std::cout << "Creating turbotx input pthread"<< std::endl;
+    rc = pthread_create(&threads[1], nullptr, turbotx_input_inst.start, &turbotx_input_inst);
+    
+    if (rc){
+        std::cout << "Error:unable to create thread," << rc << std::endl;
+        exit(-1);
+    }
+    
+    sleep(1);
+
+    std::cout << "Creating turbotx pthread"<< std::endl;
+    rc = pthread_create(&threads[2], nullptr, turbotx_output_inst.start, &turbotx_output_inst);
+    
+    if (rc){
+        std::cout << "Error:unable to create thread," << rc << std::endl;
+        exit(-1);
+    }
+    
+    sleep(1);
+
+    // Main thread pauses here
+    std::cout.flush();
+    
+    while (1) {
+        pause();
+    }
 }
