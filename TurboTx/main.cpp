@@ -27,8 +27,13 @@ int main(int argc, const char * argv[]) {
     //  - Dest
     
     turbotx turbotx_inst = turbotx();
-    turbotx_input turbotx_input_inst = turbotx_input();
-    turbotx_output turbotx_output_inst = turbotx_output();
+    turbotx_input turbotx_input_inst = turbotx_input("TurboTx Input",
+                                                     nullptr,
+                                                     turbotx_inst.input_ring);
+    
+    turbotx_output turbotx_output_inst = turbotx_output("TurboTx Output",
+                                                        turbotx_inst.output_ring,
+                                                        nullptr);
 
     std::cout << "Creating turbotx pthread"<< std::endl;
     rc = pthread_create(&threads[0], nullptr, turbotx_inst.start, &turbotx_inst);

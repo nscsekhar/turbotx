@@ -21,14 +21,8 @@ private:
     uint8_t pkt_data[2048];
     
 public:
-    pkt_buf() {
-        pkt_len = 0;
-    }
-    
-    int get_len() {
-        return pkt_len;
-    }
-    
+    pkt_buf();
+    int get_len();
 };
 
 

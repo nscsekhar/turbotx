@@ -6,13 +6,35 @@
 	<dict>
 		<key>TurboTx.xcscheme</key>
 		<dict>
+			<key>isShown</key>
+			<false/>
 			<key>orderHint</key>
 			<integer>0</integer>
+		</dict>
+		<key>TurboTx1.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>CABD3E061C3B5134009E68BD</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>CAF3239F1C30B98500075B19</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>CAF323AD1C30B9E500075B19</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>CAF323B81C30BA0300075B19</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -7,3 +7,11 @@
 //
 
 #include "pkt_buf.hpp"
+pkt_buf::pkt_buf() {
+    pkt_len = 0;
+}
+
+int pkt_buf::get_len() {
+    return pkt_len;
+}
+
