@@ -1,29 +1,28 @@
 //
-//  pkt_buf.hpp
+//  PacketBuf.hpp
 //  TurboTx
 //
 //  Created by Surya Nimmagadda on 1/3/16.
 //  Copyright © 2016 Surya Nimmagadda. All rights reserved.
 //
 
-#ifndef pkt_buf_hpp
-#define pkt_buf_hpp
+#ifndef PacketBuf_hpp
+#define PacketBuf_hpp
 
 #include <stdio.h>
 #include <stdint.h>
 
-class pkt_buf {
+class PacketBuf {
 private:
     // Metadata
-    int pkt_len;
+    int len;
     
     // Packetdata
     uint8_t pkt_data[2048];
     
 public:
-    pkt_buf();
+    PacketBuf();
     int get_len();
 };
 
-
-#endif /* pkt_buf_hpp */
+#endif /* PacketBuf_hpp */

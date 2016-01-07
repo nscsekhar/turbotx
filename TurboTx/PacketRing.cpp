@@ -1,15 +1,15 @@
 //
-//  tt_ring.cpp
+//  PacketRing.cpp
 //  TurboTx
 //
 //  Created by Surya Nimmagadda on 1/3/16.
 //  Copyright © 2016 Surya Nimmagadda. All rights reserved.
 //
 
-#include "tt_ring.hpp"
+#include "PacketRing.hpp"
 
 
-turbotx_ring::turbotx_ring (std::string ring_name) {
+PacketRing::PacketRing (std::string ring_name) {
     name = ring_name;
     
     head = 0;
@@ -22,9 +22,9 @@ turbotx_ring::turbotx_ring (std::string ring_name) {
     pthread_mutex_init(&mutex, NULL);
 }
 
-tt_ring_status turbotx_ring::enqueue(pkt_buf *pkt) {
+PacketRingStatus PacketRing::enqueue(PacketBuf *pkt) {
     
-    tt_ring_status status = fail;
+    PacketRingStatus status = ring_enq_fail;
     
     pthread_mutex_lock(&mutex);
     
@@ -37,20 +37,20 @@ tt_ring_status turbotx_ring::enqueue(pkt_buf *pkt) {
     if (next != tail) {
         ring[next] = pkt;
         head = next;
-        status = success;
+        status = ring_enq_success;
     }
     
     pthread_mutex_unlock(&mutex);
     
-    if (status == success) {
+    if (status == ring_enq_success) {
         num_enqueues++;
     }
     return status;
 }
 
-pkt_buf *turbotx_ring::dequeue() {
+PacketBuf *PacketRing::dequeue() {
     
-    pkt_buf *pkt = nullptr;
+    PacketBuf *pkt = nullptr;
     
     pthread_mutex_lock(&mutex);
     

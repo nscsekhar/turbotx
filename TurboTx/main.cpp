@@ -9,9 +9,46 @@
 #include <iostream>
 #include <cstdlib>
 #include <pthread.h>
-#include "turbotx.hpp"
+#include "PacketBuf.hpp"
+#include "PacketIO.hpp"
 
 #define NUM_THREADS 3
+
+static void *turbotx_input(void *inst) {
+    // Send a burst of 100 packets, once every 10 seconds
+    PacketIO *turbotx = (PacketIO *)inst;
+    while (1) {
+        int count = 100;
+        while (count) {
+            // Frame a Packet
+            PacketBuf *pkt = new PacketBuf();
+            
+            if (pkt) {
+                if (turbotx->send(pkt) != send_success) {
+                    delete pkt;
+                }
+            }
+            count--;
+        }
+        sleep(10);
+    }
+}
+
+static void *turbotx_output(void *inst) {
+    
+    PacketIO *turbotx = (PacketIO *)inst;
+    
+    while (1) {
+        // Receive Packet from turbotx
+        PacketBuf *pkt = turbotx->recv();
+        
+        // Drop silently
+        if (pkt) {
+            delete pkt;
+            continue;
+        }
+    }
+}
 
 
 int main(int argc, const char * argv[]) {
@@ -26,17 +63,10 @@ int main(int argc, const char * argv[]) {
     //  - Source
     //  - Dest
     
-    turbotx turbotx_inst = turbotx();
-    turbotx_input turbotx_input_inst = turbotx_input("TurboTx Input",
-                                                     nullptr,
-                                                     turbotx_inst.input_ring);
-    
-    turbotx_output turbotx_output_inst = turbotx_output("TurboTx Output",
-                                                        turbotx_inst.output_ring,
-                                                        nullptr);
+    PacketIO turbotx = PacketIO();
 
     std::cout << "Creating turbotx pthread"<< std::endl;
-    rc = pthread_create(&threads[0], nullptr, turbotx_inst.start, &turbotx_inst);
+    rc = pthread_create(&threads[0], nullptr, turbotx.start, &turbotx);
 
     if (rc){
         std::cout << "Error:unable to create thread," << rc << std::endl;
@@ -46,7 +76,7 @@ int main(int argc, const char * argv[]) {
     sleep(1);
     
     std::cout << "Creating turbotx input pthread"<< std::endl;
-    rc = pthread_create(&threads[1], nullptr, turbotx_input_inst.start, &turbotx_input_inst);
+    rc = pthread_create(&threads[1], nullptr, turbotx_input, &turbotx);
     
     if (rc){
         std::cout << "Error:unable to create thread," << rc << std::endl;
@@ -56,7 +86,7 @@ int main(int argc, const char * argv[]) {
     sleep(1);
 
     std::cout << "Creating turbotx output pthread"<< std::endl;
-    rc = pthread_create(&threads[2], nullptr, turbotx_output_inst.start, &turbotx_output_inst);
+    rc = pthread_create(&threads[2], nullptr, turbotx_output, &turbotx);
     
     if (rc){
         std::cout << "Error:unable to create thread," << rc << std::endl;
