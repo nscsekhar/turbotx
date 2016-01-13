@@ -11,8 +11,9 @@
 #include <pthread.h>
 #include "PacketBuf.hpp"
 #include "PacketIO.hpp"
+#include "http_server.hpp"
 
-#define NUM_THREADS 3
+#define NUM_THREADS 4
 
 static void *turbotx_input(void *inst) {
     // Send a burst of 100 packets, once every 10 seconds
@@ -50,6 +51,12 @@ static void *turbotx_output(void *inst) {
     }
 }
 
+static void *rest_server(void *inst) {
+    
+    PacketIO *turbotx = (PacketIO *)inst;
+    
+    return nullptr;
+}
 
 int main(int argc, const char * argv[]) {
 
@@ -87,6 +94,14 @@ int main(int argc, const char * argv[]) {
 
     std::cout << "Creating turbotx output pthread"<< std::endl;
     rc = pthread_create(&threads[2], nullptr, turbotx_output, &turbotx);
+    
+    if (rc){
+        std::cout << "Error:unable to create thread," << rc << std::endl;
+        exit(-1);
+    }
+
+    std::cout << "Creating Rest API server"<< std::endl;
+    rc = pthread_create(&threads[3], nullptr, http_main, &turbotx);
     
     if (rc){
         std::cout << "Error:unable to create thread," << rc << std::endl;
