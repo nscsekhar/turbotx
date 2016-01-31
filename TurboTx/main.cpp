@@ -15,6 +15,7 @@
 
 #define NUM_THREADS 4
 
+#if 0
 static void *turbotx_input(void *inst) {
     // Send a burst of 100 packets, once every 10 seconds
     PacketIO *turbotx = (PacketIO *)inst;
@@ -32,6 +33,20 @@ static void *turbotx_input(void *inst) {
             count--;
         }
         sleep(10);
+    }
+}
+#endif
+
+static void *turbotx_input(void *inst) {
+    // Send a burst of 100 packets, once every 10 seconds
+    PacketIO *turbotx = (PacketIO *)inst;
+    int sockfd = socket(PF_INET, SOCK_RAW, IPPROTO_RAW);
+    
+    if (sockfd == -1) {
+        std::cout << "socket error " ;
+    }
+    
+    while (1) {
     }
 }
 

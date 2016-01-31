@@ -8,11 +8,16 @@
 
 #include "PacketIO.hpp"
 #include <iostream>
+#include "event.h"
 
 PacketIO::PacketIO() {
     description = "PacketIO";
     input_ring = new PacketRing("Input ring");
     output_ring= new PacketRing("Output ring");
+    ev_input_base = event_init();
+    ev_output_base = event_init();
+    ev_pkt_input = nullptr;
+    ev_pkt_output = nullptr;
 }
 
 PacketIO::~PacketIO() {
@@ -31,6 +36,8 @@ PacketBuf *PacketIO::recv() {
 
 PacketIOStatus PacketIO::dispatch_in(PacketBuf **pktp) {
     
+    event_dispatch();
+    
     // Dequeue Packet
     *pktp = input_ring->dequeue();
     
@@ -42,6 +49,7 @@ PacketIOStatus PacketIO::dispatch_in(PacketBuf **pktp) {
     
     return dispatch_in_fail;
 }
+
 
 PacketIOStatus PacketIO::proc(PacketBuf *pkt) {
     
@@ -70,7 +78,7 @@ PacketIOStatus PacketIO::dispatch_out(PacketBuf *pkt) {
 }
 
 void PacketIO::execute() {
-
+    
     while (1) {
         
         // Dispatch In

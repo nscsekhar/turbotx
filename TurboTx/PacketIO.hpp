@@ -13,6 +13,7 @@
 #include <string>
 #include "PacketBuf.hpp"
 #include "PacketRing.hpp"
+#include "event.h"
 
 enum PacketIOStatus {
     send_fail,
@@ -64,6 +65,10 @@ protected:
     PacketIOStats stats;
     PacketRing *input_ring;
     PacketRing *output_ring;
+    struct event_base *ev_input_base;
+    struct event_base *ev_output_base;
+    struct event *ev_pkt_input;
+    struct event *ev_pkt_output;
     
 public:
     
@@ -80,9 +85,11 @@ public:
     void execute(void);
     
     static void *start(void *inst) {
-        static_cast<PacketIO *>(inst)->execute();
+        PacketIO *ttx = static_cast<PacketIO *>(inst);
+        ttx->execute();
         return nullptr;
     }
+    
 };
 
 #endif /* PacketIO_hpp */
