@@ -1,0 +1,7 @@
+TurboTx : TODO LIST
+
+1. Use libevent for notification
+2. Add filewatcher thread
+3. Expand Proc to encap a header
+4. Socket to send multiple buffers
+5. Unit tests

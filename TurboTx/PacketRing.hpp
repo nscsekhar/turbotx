@@ -12,18 +12,17 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <string>
+#include <boost/circular_buffer.hpp>
+#include <boost/lockfree/spsc_queue.hpp>
+
 #include "PacketBuf.hpp"
 #include <pthread.h>
-
-enum PacketRingStatus {
-    ring_enq_fail,
-    ring_enq_success,
-};
 
 class PacketRing {
 private:
     std::string name;
     uint32_t size;
+
     
     pthread_mutex_t mutex;
     uint32_t head;
@@ -33,9 +32,15 @@ private:
     uint32_t num_dequeues;
     uint32_t num_drops;
     
-    PacketBuf *ring[128];
-    
+    boost::lockfree::spsc_queue<PacketBuf *> ring{256};
+
 public:
+
+    enum PacketRingStatus {
+        ring_enq_fail,
+        ring_enq_success,
+    };
+    
     PacketRing (std::string ring_name);
     PacketRingStatus enqueue(PacketBuf *pkt);
     PacketBuf *dequeue();

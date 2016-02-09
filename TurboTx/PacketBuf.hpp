@@ -12,17 +12,20 @@
 #include <stdio.h>
 #include <stdint.h>
 
-class PacketBuf {
-private:
-    // Metadata
-    int len;
+#define PKTBUF_HEADLEN 128
+#define PKTBUF_TAILLEN 1792
+
+struct PacketBuf {
+    uint16_t pkt_len;
+    uint16_t head_offset;
+    uint16_t head_len;
+    uint16_t tail_offset;
+    uint16_t tail_len;
     
-    // Packetdata
-    uint8_t pkt_data[2048];
+    uint8_t head[PKTBUF_HEADLEN];
+    uint8_t tail[PKTBUF_TAILLEN];
     
-public:
     PacketBuf();
-    int get_len();
 };
 
 #endif /* PacketBuf_hpp */

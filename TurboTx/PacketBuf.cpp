@@ -7,11 +7,12 @@
 //
 
 #include "PacketBuf.hpp"
-PacketBuf::PacketBuf() {
-    len = 0;
-}
 
-int PacketBuf::get_len() {
-    return len;
+PacketBuf::PacketBuf()
+{
+    pkt_len = 0;
+    head_offset = 0;
+    head_len = 0;
+    tail_offset = 0;
+    tail_len = 0;
 }
-

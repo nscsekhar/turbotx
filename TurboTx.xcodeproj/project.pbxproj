@@ -7,17 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		CA8DC1001C4633F800333FA5 /* libevent.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CA8DC0FF1C4633F800333FA5 /* libevent.a */; };
+		CA86DD6E1C5D8D61008AEFE8 /* PacketTransport.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA86DD6C1C5D8D61008AEFE8 /* PacketTransport.cpp */; };
+		CA86DD711C5D8D78008AEFE8 /* PacketProc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA86DD6F1C5D8D78008AEFE8 /* PacketProc.cpp */; };
+		CA86DD741C5FDB23008AEFE8 /* PacketIO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA86DD721C5FDB23008AEFE8 /* PacketIO.cpp */; };
+		CA86DD761C6288BE008AEFE8 /* libboost_system.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CA86DD751C6288BE008AEFE8 /* libboost_system.a */; };
+		CA86DD791C62C1D3008AEFE8 /* libboost_thread-mt.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CA86DD781C62C1D3008AEFE8 /* libboost_thread-mt.a */; };
+		CA86DD7C1C6409E0008AEFE8 /* Utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA86DD7A1C6409E0008AEFE8 /* Utils.cpp */; };
 		CABD3DFC1C3A00D2009E68BD /* PacketBuf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CABD3DFA1C3A00D2009E68BD /* PacketBuf.cpp */; };
 		CABD3DFF1C3A0170009E68BD /* PacketRing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CABD3DFD1C3A0170009E68BD /* PacketRing.cpp */; };
 		CABD3E0E1C3B8E7A009E68BD /* PacketRing.hpp in Sources */ = {isa = PBXBuildFile; fileRef = CABD3DFE1C3A0170009E68BD /* PacketRing.hpp */; };
 		CABD3E0F1C3B8E7A009E68BD /* PacketBuf.hpp in Sources */ = {isa = PBXBuildFile; fileRef = CABD3DFB1C3A00D2009E68BD /* PacketBuf.hpp */; };
-		CABD3E101C3B8E7A009E68BD /* PacketIO.hpp in Sources */ = {isa = PBXBuildFile; fileRef = CAF323C11C33141800075B19 /* PacketIO.hpp */; };
-		CABD3E141C445073009E68BD /* http_server.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CABD3E121C445073009E68BD /* http_server.cpp */; };
-		CAC83B9C1C53D0A100373F74 /* RawSocket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CAC83B9A1C53D0A100373F74 /* RawSocket.cpp */; };
-		CAC83B9F1C56A26D00373F74 /* EventSocket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CAC83B9D1C56A26D00373F74 /* EventSocket.cpp */; };
 		CAF323A41C30B98500075B19 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CAF323A31C30B98500075B19 /* main.cpp */; };
-		CAF323C21C33141800075B19 /* PacketIO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CAF323C01C33141800075B19 /* PacketIO.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -60,24 +60,26 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		CA8DC0FF1C4633F800333FA5 /* libevent.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libevent.a; path = ../../../../../../../usr/local/lib/libevent.a; sourceTree = "<group>"; };
+		CA86DD6C1C5D8D61008AEFE8 /* PacketTransport.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PacketTransport.cpp; sourceTree = "<group>"; };
+		CA86DD6D1C5D8D61008AEFE8 /* PacketTransport.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PacketTransport.hpp; sourceTree = "<group>"; };
+		CA86DD6F1C5D8D78008AEFE8 /* PacketProc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PacketProc.cpp; sourceTree = "<group>"; };
+		CA86DD701C5D8D78008AEFE8 /* PacketProc.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PacketProc.hpp; sourceTree = "<group>"; };
+		CA86DD721C5FDB23008AEFE8 /* PacketIO.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PacketIO.cpp; sourceTree = "<group>"; };
+		CA86DD731C5FDB23008AEFE8 /* PacketIO.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PacketIO.hpp; sourceTree = "<group>"; };
+		CA86DD751C6288BE008AEFE8 /* libboost_system.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_system.a; path = ../../../../../../../usr/local/Cellar/boost/1.58.0/lib/libboost_system.a; sourceTree = "<group>"; };
+		CA86DD771C62BD22008AEFE8 /* Todo List */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Todo List"; sourceTree = "<group>"; };
+		CA86DD781C62C1D3008AEFE8 /* libboost_thread-mt.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libboost_thread-mt.a"; path = "../../../../../../../usr/local/Cellar/boost/1.58.0/lib/libboost_thread-mt.a"; sourceTree = "<group>"; };
+		CA86DD7A1C6409E0008AEFE8 /* Utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Utils.cpp; sourceTree = "<group>"; };
+		CA86DD7B1C6409E0008AEFE8 /* Utils.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Utils.hpp; sourceTree = "<group>"; };
 		CABD3DFA1C3A00D2009E68BD /* PacketBuf.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PacketBuf.cpp; sourceTree = "<group>"; };
 		CABD3DFB1C3A00D2009E68BD /* PacketBuf.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PacketBuf.hpp; sourceTree = "<group>"; };
 		CABD3DFD1C3A0170009E68BD /* PacketRing.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PacketRing.cpp; sourceTree = "<group>"; };
 		CABD3DFE1C3A0170009E68BD /* PacketRing.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PacketRing.hpp; sourceTree = "<group>"; };
 		CABD3E071C3B5134009E68BD /* TurboTx1 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = TurboTx1; sourceTree = BUILT_PRODUCTS_DIR; };
-		CABD3E121C445073009E68BD /* http_server.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = http_server.cpp; sourceTree = "<group>"; };
-		CABD3E131C445073009E68BD /* http_server.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = http_server.hpp; sourceTree = "<group>"; };
-		CAC83B9A1C53D0A100373F74 /* RawSocket.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RawSocket.cpp; sourceTree = "<group>"; };
-		CAC83B9B1C53D0A100373F74 /* RawSocket.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = RawSocket.hpp; sourceTree = "<group>"; };
-		CAC83B9D1C56A26D00373F74 /* EventSocket.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EventSocket.cpp; sourceTree = "<group>"; };
-		CAC83B9E1C56A26D00373F74 /* EventSocket.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = EventSocket.hpp; sourceTree = "<group>"; };
 		CAF323A01C30B98500075B19 /* TurboTx */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = TurboTx; sourceTree = BUILT_PRODUCTS_DIR; };
 		CAF323A31C30B98500075B19 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		CAF323AE1C30B9E500075B19 /* TurboTxSource */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = TurboTxSource; sourceTree = BUILT_PRODUCTS_DIR; };
 		CAF323B91C30BA0300075B19 /* TurboTxDest */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = TurboTxDest; sourceTree = BUILT_PRODUCTS_DIR; };
-		CAF323C01C33141800075B19 /* PacketIO.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PacketIO.cpp; sourceTree = "<group>"; };
-		CAF323C11C33141800075B19 /* PacketIO.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PacketIO.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,7 +94,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CA8DC1001C4633F800333FA5 /* libevent.a in Frameworks */,
+				CA86DD791C62C1D3008AEFE8 /* libboost_thread-mt.a in Frameworks */,
+				CA86DD761C6288BE008AEFE8 /* libboost_system.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -116,7 +119,8 @@
 		CAF323971C30B98500075B19 = {
 			isa = PBXGroup;
 			children = (
-				CA8DC0FF1C4633F800333FA5 /* libevent.a */,
+				CA86DD781C62C1D3008AEFE8 /* libboost_thread-mt.a */,
+				CA86DD751C6288BE008AEFE8 /* libboost_system.a */,
 				CAF323A21C30B98500075B19 /* TurboTx */,
 				CAF323A11C30B98500075B19 /* Products */,
 			);
@@ -137,18 +141,19 @@
 			isa = PBXGroup;
 			children = (
 				CAF323A31C30B98500075B19 /* main.cpp */,
-				CAF323C01C33141800075B19 /* PacketIO.cpp */,
-				CAF323C11C33141800075B19 /* PacketIO.hpp */,
+				CA86DD6C1C5D8D61008AEFE8 /* PacketTransport.cpp */,
+				CA86DD6D1C5D8D61008AEFE8 /* PacketTransport.hpp */,
+				CA86DD721C5FDB23008AEFE8 /* PacketIO.cpp */,
+				CA86DD731C5FDB23008AEFE8 /* PacketIO.hpp */,
+				CA86DD6F1C5D8D78008AEFE8 /* PacketProc.cpp */,
+				CA86DD701C5D8D78008AEFE8 /* PacketProc.hpp */,
 				CABD3DFA1C3A00D2009E68BD /* PacketBuf.cpp */,
+				CABD3DFB1C3A00D2009E68BD /* PacketBuf.hpp */,
 				CABD3DFD1C3A0170009E68BD /* PacketRing.cpp */,
 				CABD3DFE1C3A0170009E68BD /* PacketRing.hpp */,
-				CABD3DFB1C3A00D2009E68BD /* PacketBuf.hpp */,
-				CABD3E121C445073009E68BD /* http_server.cpp */,
-				CABD3E131C445073009E68BD /* http_server.hpp */,
-				CAC83B9A1C53D0A100373F74 /* RawSocket.cpp */,
-				CAC83B9B1C53D0A100373F74 /* RawSocket.hpp */,
-				CAC83B9D1C56A26D00373F74 /* EventSocket.cpp */,
-				CAC83B9E1C56A26D00373F74 /* EventSocket.hpp */,
+				CA86DD7A1C6409E0008AEFE8 /* Utils.cpp */,
+				CA86DD7B1C6409E0008AEFE8 /* Utils.hpp */,
+				CA86DD771C62BD22008AEFE8 /* Todo List */,
 			);
 			path = TurboTx;
 			sourceTree = "<group>";
@@ -334,15 +339,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				CABD3E0E1C3B8E7A009E68BD /* PacketRing.hpp in Sources */,
-				CAC83B9C1C53D0A100373F74 /* RawSocket.cpp in Sources */,
 				CABD3E0F1C3B8E7A009E68BD /* PacketBuf.hpp in Sources */,
-				CABD3E101C3B8E7A009E68BD /* PacketIO.hpp in Sources */,
-				CAF323C21C33141800075B19 /* PacketIO.cpp in Sources */,
+				CA86DD741C5FDB23008AEFE8 /* PacketIO.cpp in Sources */,
+				CA86DD6E1C5D8D61008AEFE8 /* PacketTransport.cpp in Sources */,
+				CA86DD7C1C6409E0008AEFE8 /* Utils.cpp in Sources */,
 				CABD3DFC1C3A00D2009E68BD /* PacketBuf.cpp in Sources */,
 				CAF323A41C30B98500075B19 /* main.cpp in Sources */,
-				CABD3E141C445073009E68BD /* http_server.cpp in Sources */,
+				CA86DD711C5D8D78008AEFE8 /* PacketProc.cpp in Sources */,
 				CABD3DFF1C3A0170009E68BD /* PacketRing.cpp in Sources */,
-				CAC83B9F1C56A26D00373F74 /* EventSocket.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -461,6 +465,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				"HEADER_SEARCH_PATHS[arch=*]" = /usr/local/include;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/usr/local/Cellar/boost/1.58.0/lib,
+				);
 				"LIBRARY_SEARCH_PATHS[arch=*]" = /usr/local/lib;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -471,6 +479,10 @@
 			buildSettings = {
 				"HEADER_SEARCH_PATHS[arch=*]" = /usr/local/include;
 				"LD_DYLIB_INSTALL_NAME[arch=*]" = "";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/usr/local/Cellar/boost/1.58.0/lib,
+				);
 				"LIBRARY_SEARCH_PATHS[arch=*]" = /usr/local/lib;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

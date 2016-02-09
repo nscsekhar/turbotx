@@ -8,7 +8,6 @@
 
 #include "PacketRing.hpp"
 
-
 PacketRing::PacketRing (std::string ring_name) {
     name = ring_name;
     
@@ -18,55 +17,27 @@ PacketRing::PacketRing (std::string ring_name) {
     num_enqueues = 0;
     num_dequeues = 0;
     
-    size = 128; // Fixed for now.
+    size = 32; // Fixed for now.
     pthread_mutex_init(&mutex, NULL);
 }
 
-PacketRingStatus PacketRing::enqueue(PacketBuf *pkt) {
+PacketRing::PacketRingStatus PacketRing::enqueue(PacketBuf *pkt) {
     
-    PacketRingStatus status = ring_enq_fail;
-    
-    pthread_mutex_lock(&mutex);
-    
-    int next = head;
-    
-    next = head + 1;
-    if (next >= size) {
-        next = 0;
+    if (ring.push(pkt) == ring_enq_success) {
+        return ring_enq_success;
+    } else {
+        return ring_enq_fail;
     }
-    if (next != tail) {
-        ring[next] = pkt;
-        head = next;
-        status = ring_enq_success;
-    }
-    
-    pthread_mutex_unlock(&mutex);
-    
-    if (status == ring_enq_success) {
-        num_enqueues++;
-    }
-    return status;
 }
 
 PacketBuf *PacketRing::dequeue() {
     
     PacketBuf *pkt = nullptr;
     
-    pthread_mutex_lock(&mutex);
-    
-    if (head != tail) {
-        pkt = ring[tail];
-        tail = tail + 1;
-        if (tail >= size) {
-            tail = 0;
-        }
-    }
-    
-    pthread_mutex_unlock(&mutex);
-    
-    if (pkt) {
+    if (ring.pop(&pkt, 1) == 1) {
         num_dequeues++;
+        return pkt;
+    } else {
+        return nullptr;
     }
-    
-    return pkt;
 }
