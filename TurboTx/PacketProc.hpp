@@ -15,6 +15,10 @@
 #include "PacketRing.hpp"
 #include "PacketBuf.hpp"
 #include "Utils.hpp"
+#include <event2/event.h>
+#include <event2/thread.h>
+#include <boost/circular_buffer.hpp>
+#include <boost/lockfree/spsc_queue.hpp>
 
 extern PacketRing input_ring_;
 
@@ -50,14 +54,25 @@ public:
 
 class PacketProc {
 private:
+    struct event_base *base;
+    struct event *enqueue_event;
+    
+    boost::lockfree::spsc_queue<PacketBuf *> ring{256};
+    
+    uint32_t num_enqueues;
+    uint32_t num_dequeues;
+    uint32_t num_drops;
+
     int output_sockfd_;
     uint8_t event_data;
     PacketIOStats stats_;
 
 public:
     
-    boost::asio::io_service inputevent_service_;
-    boost::asio::local::datagram_protocol::socket input_event_dst_socket_;
+    enum PacketRingStatus {
+        ring_enq_fail,
+        ring_enq_success,
+    };
 
     enum Status {
         SEND_SUCCESS,
@@ -73,11 +88,13 @@ public:
     PacketProc();
     ~PacketProc();
     
-    PacketProc::Status send(PacketBuf *pkt);
-    PacketProc::Status dispatch_in(PacketBuf **pkt);
-    void process();
+    PacketProc::PacketRingStatus send(PacketBuf *pkt);
+    PacketProc::PacketRingStatus dispatch_in(PacketBuf **pkt);
+    PacketBuf *recv();
 
-    void ArmEventInputService();
+    static void listen(int fd, short ev, void *arg);
+    
+    void process();
     void run();
 
 };

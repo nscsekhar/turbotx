@@ -10,9 +10,9 @@
 #include <boost/thread.hpp>
 
 PacketIO::PacketIO()
+:transport_(&proc_)
 {
-    boost::asio::local::connect_pair(transport_.input_event_src_socket_, proc_.input_event_dst_socket_);
-    proc_.ArmEventInputService();
+    
 }
 
 PacketIO::~PacketIO()

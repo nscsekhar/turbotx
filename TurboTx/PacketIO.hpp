@@ -13,16 +13,15 @@
 #include <stdio.h>
 #include <boost/asio.hpp>
 #include <boost/bind.hpp>
+#include "PacketIPC.hpp"
 #include "PacketTransport.hpp"
 #include "PacketProc.hpp"
-
-using boost::asio::ip::udp;
 
 class PacketIO {
     
 private:
-    PacketTransport transport_;
     PacketProc proc_;
+    PacketTransport transport_;
     
 public:
     PacketIO();

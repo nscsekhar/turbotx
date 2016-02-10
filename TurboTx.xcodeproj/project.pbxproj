@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CA2DACE11C6A8CBB00F7B8E6 /* PacketIPC.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA2DACDF1C6A8CBB00F7B8E6 /* PacketIPC.cpp */; };
+		CA2DACE41C6AA99500F7B8E6 /* libevent_pthreads.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CA2DACE21C6AA99500F7B8E6 /* libevent_pthreads.a */; };
+		CA2DACE51C6AA99500F7B8E6 /* libevent.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CA2DACE31C6AA99500F7B8E6 /* libevent.a */; };
 		CA86DD6E1C5D8D61008AEFE8 /* PacketTransport.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA86DD6C1C5D8D61008AEFE8 /* PacketTransport.cpp */; };
 		CA86DD711C5D8D78008AEFE8 /* PacketProc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA86DD6F1C5D8D78008AEFE8 /* PacketProc.cpp */; };
 		CA86DD741C5FDB23008AEFE8 /* PacketIO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA86DD721C5FDB23008AEFE8 /* PacketIO.cpp */; };
@@ -60,6 +63,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		CA2DACDF1C6A8CBB00F7B8E6 /* PacketIPC.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PacketIPC.cpp; sourceTree = "<group>"; };
+		CA2DACE01C6A8CBB00F7B8E6 /* PacketIPC.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PacketIPC.hpp; sourceTree = "<group>"; };
+		CA2DACE21C6AA99500F7B8E6 /* libevent_pthreads.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libevent_pthreads.a; path = ../../../../../../../usr/local/lib/libevent_pthreads.a; sourceTree = "<group>"; };
+		CA2DACE31C6AA99500F7B8E6 /* libevent.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libevent.a; path = ../../../../../../../usr/local/lib/libevent.a; sourceTree = "<group>"; };
 		CA86DD6C1C5D8D61008AEFE8 /* PacketTransport.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PacketTransport.cpp; sourceTree = "<group>"; };
 		CA86DD6D1C5D8D61008AEFE8 /* PacketTransport.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PacketTransport.hpp; sourceTree = "<group>"; };
 		CA86DD6F1C5D8D78008AEFE8 /* PacketProc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PacketProc.cpp; sourceTree = "<group>"; };
@@ -94,6 +101,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CA2DACE41C6AA99500F7B8E6 /* libevent_pthreads.a in Frameworks */,
+				CA2DACE51C6AA99500F7B8E6 /* libevent.a in Frameworks */,
 				CA86DD791C62C1D3008AEFE8 /* libboost_thread-mt.a in Frameworks */,
 				CA86DD761C6288BE008AEFE8 /* libboost_system.a in Frameworks */,
 			);
@@ -119,6 +128,8 @@
 		CAF323971C30B98500075B19 = {
 			isa = PBXGroup;
 			children = (
+				CA2DACE21C6AA99500F7B8E6 /* libevent_pthreads.a */,
+				CA2DACE31C6AA99500F7B8E6 /* libevent.a */,
 				CA86DD781C62C1D3008AEFE8 /* libboost_thread-mt.a */,
 				CA86DD751C6288BE008AEFE8 /* libboost_system.a */,
 				CAF323A21C30B98500075B19 /* TurboTx */,
@@ -146,6 +157,8 @@
 				CA86DD721C5FDB23008AEFE8 /* PacketIO.cpp */,
 				CA86DD731C5FDB23008AEFE8 /* PacketIO.hpp */,
 				CA86DD6F1C5D8D78008AEFE8 /* PacketProc.cpp */,
+				CA2DACDF1C6A8CBB00F7B8E6 /* PacketIPC.cpp */,
+				CA2DACE01C6A8CBB00F7B8E6 /* PacketIPC.hpp */,
 				CA86DD701C5D8D78008AEFE8 /* PacketProc.hpp */,
 				CABD3DFA1C3A00D2009E68BD /* PacketBuf.cpp */,
 				CABD3DFB1C3A00D2009E68BD /* PacketBuf.hpp */,
@@ -340,6 +353,7 @@
 			files = (
 				CABD3E0E1C3B8E7A009E68BD /* PacketRing.hpp in Sources */,
 				CABD3E0F1C3B8E7A009E68BD /* PacketBuf.hpp in Sources */,
+				CA2DACE11C6A8CBB00F7B8E6 /* PacketIPC.cpp in Sources */,
 				CA86DD741C5FDB23008AEFE8 /* PacketIO.cpp in Sources */,
 				CA86DD6E1C5D8D61008AEFE8 /* PacketTransport.cpp in Sources */,
 				CA86DD7C1C6409E0008AEFE8 /* Utils.cpp in Sources */,

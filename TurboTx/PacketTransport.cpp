@@ -11,12 +11,12 @@
 #include <sys/socket.h>
 #include "Utils.hpp"
 
-PacketTransport::PacketTransport()
-:input_event_src_socket_(inputevent_service_)
+PacketTransport::PacketTransport(PacketProc *procptr)
 {
     pkt = new PacketBuf;
     debug_counter_num_events_ = 0;
     input_sockfd_ = OpenSocket("vboxnet0", 6666);
+    procp_ = procptr;
 }
 
 PacketTransport::~PacketTransport()
@@ -43,13 +43,10 @@ void PacketTransport::run()
         pkt->tail_offset = 0;
 
         // Enqueue the packet
-        if (input_ring_.enqueue(pkt) == PacketRing::PacketRingStatus::ring_enq_fail) {
+        if (procp_->send(pkt) == PacketProc::PacketRingStatus::ring_enq_fail) {
             delete pkt;
         }
-        
-        input_event_src_socket_.send(boost::asio::buffer(&event_data, 1));
-        debug_counter_num_events_++;
-        
+                
         // Allocate a new packet and re-arm the IO service
         pkt = new PacketBuf;
     }

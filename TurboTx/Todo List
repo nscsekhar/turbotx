@@ -4,4 +4,5 @@ TurboTx : TODO LIST
 2. Add filewatcher thread
 3. Expand Proc to encap a header
 4. Socket to send multiple buffers
+6. Error handling
 5. Unit tests

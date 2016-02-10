@@ -9,9 +9,13 @@
 #include "PacketProc.hpp"
 
 PacketProc::PacketProc()
-:input_event_dst_socket_(inputevent_service_)
 {
     output_sockfd_ = OpenSocket("vboxnet1", 5555);
+    
+    // Initialize event
+    evthread_use_pthreads();
+    base = event_base_new();
+    enqueue_event = event_new(base, -1, 0, &PacketProc::listen, this);
 }
 
 PacketProc::~PacketProc()
@@ -19,33 +23,41 @@ PacketProc::~PacketProc()
     return;
 }
 
+void PacketProc::listen(int fd, short ev, void *arg)
+{
+    (static_cast<PacketProc*>(arg))->process();
+}
+
 void PacketProc::run()
 {
-    inputevent_service_.run();
-}
-
-PacketProc::Status PacketProc::send (PacketBuf *pkt) {
-    if (input_ring_.enqueue(pkt) != PacketRing::ring_enq_success) {
-        return SEND_FAIL;
+    while (1) {
+        event_base_dispatch(base);
     }
-    return SEND_SUCCESS;
 }
 
-
-PacketProc::Status PacketProc::dispatch_in(PacketBuf **pktp) {
+PacketProc::PacketRingStatus PacketProc::send(PacketBuf *pkt) {
     
-    // Dequeue Packet
-    *pktp = input_ring_.dequeue();
-    
-    if (*pktp) {
-        stats_.incr_pkts_in();
-        stats_.incr_pktbytes_in((*pktp)->pkt_len);
-        return DISPATCH_IN_SUCCESS;
+    if (ring.push(pkt) == ring_enq_success) {
+        event_active(enqueue_event, 0, 0);
+        num_enqueues++;
+        return ring_enq_success;
+    } else {
+        num_drops++;
+        return ring_enq_fail;
     }
-    
-    return DISPATCH_IN_FAIL;
 }
 
+PacketBuf *PacketProc::recv() {
+    
+    PacketBuf *pkt = nullptr;
+    
+    if (ring.pop(&pkt, 1) == 1) {
+        num_dequeues++;
+        return pkt;
+    } else {
+        return nullptr;
+    }
+}
 
 void PacketProc::process() {
     
@@ -56,8 +68,8 @@ void PacketProc::process() {
     si_other.sin_port = htons(7777);
     inet_aton("192.168.57.101", &si_other.sin_addr);
     
-//    while (1) {
-        pkt = input_ring_.dequeue();
+    while (1) {
+        pkt = recv();
         
         if (pkt) {
             // Got a packet - send it and free
@@ -67,15 +79,7 @@ void PacketProc::process() {
             // No packet, break and wait for the next signal.
             //break;
         }
-//    };
-    
-    ArmEventInputService();
-}
-
-void PacketProc::ArmEventInputService()
-{
-    input_event_dst_socket_.async_receive(boost::asio::buffer(&event_data, 1),
-                                          boost::bind(&PacketProc::process, this));
+    };
     
 }
 
