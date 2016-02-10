@@ -13,7 +13,6 @@
 #include <stdio.h>
 #include <boost/asio.hpp>
 #include <boost/bind.hpp>
-#include "PacketIPC.hpp"
 #include "PacketTransport.hpp"
 #include "PacketProc.hpp"
 
