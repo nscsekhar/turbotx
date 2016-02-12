@@ -8,49 +8,93 @@
 
 #include "PacketProc.hpp"
 
-PacketProc::PacketProc()
-{
+PacketProc::PacketProc() {
+    // Init socket
     output_sockfd_ = OpenSocket("vboxnet1", 5555);
+    if (output_sockfd_ < 0) {
+        std::cout << "Failed to create output socket" << std::endl;
+        exit(EXIT_FAILURE);
+    }
     
     // Initialize event
     evthread_use_pthreads();
     base = event_base_new();
-    enqueue_event = event_new(base, -1, 0, &PacketProc::listen, this);
+    enqueue_event = event_new(base, -1, EV_PERSIST | EV_READ, &PacketProc::listen, this);
+    event_add(enqueue_event, NULL);
+
+    // Init counters
+    num_enqueues = 0;
+    num_drops = 0;
+    num_dequeues = 0;
+    num_sends = 0;
+    num_send_fails = 0;
+    num_pkts_freed = 0;
+    num_enqueue_event_callbacks = 0;
 }
 
-PacketProc::~PacketProc()
-{
+PacketProc::PacketProc(const char *output_if) {
+    // Init socket
+    output_sockfd_ = OpenSocket(output_if, 5555);
+    if (output_sockfd_ < 0) {
+        std::cout << "Failed to create output socket" << std::endl;
+        exit(EXIT_FAILURE);
+    }
+    
+    // Init counters
+    num_enqueues = 0;
+    num_drops = 0;
+    num_dequeues = 0;
+    
+    // Initialize event base
+    evthread_use_pthreads();
+    base = event_base_new();
+    if (!base) {
+        std::cout << "Failed to create event base" << std::endl;
+        exit(EXIT_FAILURE);
+    }
+    
+    // Setup enqueue event
+    enqueue_event = event_new(base, -1, EV_PERSIST | EV_READ, &PacketProc::listen, this);
+    if (!enqueue_event) {
+        std::cout << "Failed to create enqueue event" << std::endl;
+        exit(EXIT_FAILURE);
+    }
+    event_add(enqueue_event, NULL);
+}
+
+PacketProc::~PacketProc() {
     return;
 }
 
-void PacketProc::listen(int fd, short ev, void *arg)
-{
+void PacketProc::listen(int fd, short ev, void *arg) {
+    (static_cast<PacketProc*>(arg))->num_enqueue_event_callbacks++;
     (static_cast<PacketProc*>(arg))->process();
 }
 
-void PacketProc::run()
-{
-    while (1) {
-        event_base_dispatch(base);
-    }
+
+void PacketProc::start(void *arg) {
+    (static_cast<PacketProc*>(arg))->run();
 }
 
-PacketProc::PacketRingStatus PacketProc::send(PacketBuf *pkt) {
-    
-    if (ring.push(pkt) == ring_enq_success) {
-        event_active(enqueue_event, 0, 0);
+void PacketProc::run() {
+    event_base_dispatch(base);
+}
+
+PacketProc::Status PacketProc::send(PacketBuf *pkt) {
+    if (ring.push(pkt)) {
+        event_active(enqueue_event, EV_WRITE, 0);
         num_enqueues++;
-        return ring_enq_success;
+        return SUCCESS;
     } else {
         num_drops++;
-        return ring_enq_fail;
+        // Caller frees the packet
+        return FAIL;
     }
 }
 
 PacketBuf *PacketProc::recv() {
-    
     PacketBuf *pkt = nullptr;
-    
+
     if (ring.pop(&pkt, 1) == 1) {
         num_dequeues++;
         return pkt;
@@ -60,100 +104,35 @@ PacketBuf *PacketProc::recv() {
 }
 
 void PacketProc::process() {
-    
     PacketBuf *pkt;
-    struct sockaddr_in si_other;
     
+    // TODO : Move this to constructor
+    struct sockaddr_in si_other;
     si_other.sin_family = AF_INET;
     si_other.sin_port = htons(7777);
     inet_aton("192.168.57.101", &si_other.sin_addr);
-    
+   
     while (1) {
         pkt = recv();
         
         if (pkt) {
-            // Got a packet - send it and free
-            sendto(output_sockfd_, pkt->tail, pkt->tail_len, 0, (struct sockaddr *)&si_other, sizeof(sockaddr));
+            // Got a packet - send it out.
+            long bytes_sent;
+            
+            bytes_sent = sendto(output_sockfd_, pkt->tail, pkt->tail_len, 0, (struct sockaddr *)&si_other, sizeof(sockaddr));
+
+            if (bytes_sent < 0) {
+                num_send_fails++;
+            } else {
+                num_sends++;
+            }
             delete pkt;
+            num_pkts_freed++;
+            
         } else {
             // No packet, break and wait for the next signal.
-            //break;
+            break;
         }
-    };
-    
-}
-
-PacketIOStats::PacketIOStats()
-{
-    num_pkts_in = 0;
-    num_pktbytes_in = 0;
-    num_pkts_out = 0;
-    num_pktbytes_out = 0;
-    num_pkts_drop = 0;
-    num_pktbytes_drop = 0;
-}
-
-void PacketIOStats::incr_pkts_in()
-{
-    num_pkts_in++;
-}
-
-void PacketIOStats::incr_pktbytes_in(int num_bytes)
-{
-    num_pktbytes_in += num_bytes;
-}
-
-void PacketIOStats::incr_pkts_drop()
-{
-    num_pkts_drop++;
-}
-
-void PacketIOStats::incr_pktbytes_drop(int num_bytes)
-{
-    num_pktbytes_drop += num_bytes;
-}
-
-void PacketIOStats::incr_pkts_out()
-{
-    num_pkts_out++;
-}
-void PacketIOStats::incr_pktbytes_out(int num_bytes)
-{
-    num_pktbytes_out += num_bytes;
-}
-
-int PacketIOStats::get_pkts_in()
-{
-    return num_pkts_in;
-}
-int PacketIOStats::get_pktbytes_in()
-{
-    return num_pktbytes_in;
-}
-int PacketIOStats::get_pkts_drop()
-{
-    return num_pkts_drop;
-}
-int PacketIOStats::get_pktbytes_drop()
-{
-    return num_pktbytes_drop;
-}
-int PacketIOStats::get_pkts_out()
-{
-    return num_pkts_out;
-}
-int PacketIOStats::get_pktbytes_out()
-{
-    return num_pktbytes_out;
-}
-void PacketIOStats::dump()
-{
-    std::cout << "Packet IO Stats" << std::endl;
-    std::cout << "num pkts in: " << num_pkts_in << std::endl;
-    std::cout << "num pkt bytes in: " << num_pktbytes_in << std::endl;
-    std::cout << "num pkts dropped: " << num_pkts_drop << std::endl;
-    std::cout << "num pkt bytes dropped: " << num_pktbytes_drop << std::endl;
-    std::cout << "num pkts out: " << num_pkts_out << std::endl;
-    std::cout << "num pkt bytes out: " << num_pktbytes_out << std::endl;
+    }
 }
 

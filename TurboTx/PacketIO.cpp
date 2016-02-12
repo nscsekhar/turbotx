@@ -7,23 +7,23 @@
 //
 
 #include "PacketIO.hpp"
-#include <boost/thread.hpp>
+#include <thread>
 
 PacketIO::PacketIO()
-:transport_(&proc_)
-{
-    
+:transport_(&proc_) {
 }
 
-PacketIO::~PacketIO()
-{
+PacketIO::PacketIO(const char *input_if, const char *output_if)
+:proc_(output_if), transport_(input_if, &proc_) {
+}
+
+PacketIO::~PacketIO() {
     return;
 }
 
-void PacketIO::run()
-{
-    boost::thread transport(&PacketTransport::run, &transport_);
-    boost::thread proc(&PacketProc::run, &proc_);
+void PacketIO::run() {
+    std::thread transport(&PacketTransport::run, &transport_);
+    std::thread proc(&PacketProc::start, &proc_);
     transport.join();
     proc.join();
 }

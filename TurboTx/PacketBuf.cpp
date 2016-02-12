@@ -8,8 +8,7 @@
 
 #include "PacketBuf.hpp"
 
-PacketBuf::PacketBuf()
-{
+PacketBuf::PacketBuf() {
     pkt_len = 0;
     head_offset = 0;
     head_len = 0;

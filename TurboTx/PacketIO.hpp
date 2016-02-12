@@ -10,25 +10,22 @@
 #define PacketIO_hpp
 
 #include <stdio.h>
-#include <stdio.h>
-#include <boost/asio.hpp>
+#include <string>
 #include <boost/bind.hpp>
 #include "PacketTransport.hpp"
 #include "PacketProc.hpp"
 
 class PacketIO {
-    
-private:
+
+ private:
     PacketProc proc_;
     PacketTransport transport_;
-    
-public:
+
+ public:
     PacketIO();
-    PacketIO(std::string input_interface, std::string output_interface);
+    PacketIO(const char *input_interface, const char *output_interface);
     ~PacketIO();
-        
     void run();
-    
 };
 
 #endif /* PacketIO_hpp */

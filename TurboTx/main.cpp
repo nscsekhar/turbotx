@@ -10,13 +10,9 @@
 #include "PacketIO.hpp"
 #include "PacketRing.hpp"
 
-// Globals
-PacketRing input_ring_("Input Ring");
-
-
 int main()
 {
     std::cout << "TurboTx Main" << std::endl;
-    PacketIO TurboTx;
+    PacketIO TurboTx("vboxnet0", "vboxnet1");
     TurboTx.run();
 }

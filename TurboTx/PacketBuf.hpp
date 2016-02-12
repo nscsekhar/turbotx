@@ -21,10 +21,10 @@ struct PacketBuf {
     uint16_t head_len;
     uint16_t tail_offset;
     uint16_t tail_len;
-    
+
     uint8_t head[PKTBUF_HEADLEN];
     uint8_t tail[PKTBUF_TAILLEN];
-    
+
     PacketBuf();
 };
 

@@ -54,9 +54,8 @@ int OpenSocket(const char *input_interface, short port)
     struct sockaddr_in sockaddr;
     
     int sockfd;
-    
+
     sockfd = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
-    
     if (sockfd < 0) {
         std::cerr << "Unable to create socket" << std::endl;
     }
@@ -71,6 +70,6 @@ int OpenSocket(const char *input_interface, short port)
     if (bind(sockfd, (struct sockaddr *)&sockaddr, sizeof(sockaddr)) < 0) {
         std::cerr << "Unable to bind socket" << std::endl;
     }
-    
+
     return sockfd;
 }

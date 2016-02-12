@@ -14,9 +14,33 @@
 PacketTransport::PacketTransport(PacketProc *procptr)
 {
     pkt = new PacketBuf;
-    debug_counter_num_events_ = 0;
+    
+    if (!pkt) {
+        std::cout << "Failed to allocate packet buffer" << std::endl;
+        exit(EXIT_FAILURE);
+    } else {
+        num_pkts_allocated++;
+    }
+
     input_sockfd_ = OpenSocket("vboxnet0", 6666);
     procp_ = procptr;
+    num_recvs = num_recv_errors = num_pkts_allocated = 0;
+}
+
+PacketTransport::PacketTransport(const char *input_if, PacketProc *procptr)
+{
+    pkt = new PacketBuf;
+    
+    if (!pkt) {
+        std::cout << "Failed to allocate packet buffer" << std::endl;
+        exit(EXIT_FAILURE);
+    } else {
+        num_pkts_allocated++;
+    }
+
+    input_sockfd_ = OpenSocket(input_if, 6666);
+    procp_ = procptr;
+    num_recvs = num_recv_errors = num_pkts_allocated = 0;
 }
 
 PacketTransport::~PacketTransport()
@@ -34,20 +58,27 @@ void PacketTransport::run()
         bytes_recvd = recvfrom(input_sockfd_, pkt->tail, PKTBUF_TAILLEN, 0, &sender, &sender_len);
         
         if (bytes_recvd < 0) {
-            std::cout<<"Input socket receive error" << std::endl;
+            num_recv_errors++;
             continue;
         }
         
+        num_recvs++;
         pkt->pkt_len = bytes_recvd;
         pkt->tail_len = bytes_recvd;
         pkt->tail_offset = 0;
 
         // Enqueue the packet
-        if (procp_->send(pkt) == PacketProc::PacketRingStatus::ring_enq_fail) {
+        if (procp_->send(pkt) != PacketProc::Status::SUCCESS) {
             delete pkt;
         }
                 
         // Allocate a new packet and re-arm the IO service
         pkt = new PacketBuf;
+        if (!pkt) {
+            std::cout << "Failed to allocate packet buffer" << std::endl;
+            exit(EXIT_FAILURE);
+        } else {
+            num_pkts_allocated++;
+        }
     }
 }
