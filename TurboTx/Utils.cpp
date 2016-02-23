@@ -7,6 +7,7 @@
 //
 
 #include "Utils.hpp"
+#include "errno.h"
 
 static int getv4sockaddrbyif(const char *interface, struct sockaddr_in *sockaddr)
 {
@@ -58,6 +59,7 @@ int OpenSocket(const char *input_interface, short port)
     sockfd = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
     if (sockfd < 0) {
         std::cerr << "Unable to create socket" << std::endl;
+        return -1;
     }
     
     // Get the Interface IP address
@@ -69,7 +71,29 @@ int OpenSocket(const char *input_interface, short port)
     // Bind
     if (bind(sockfd, (struct sockaddr *)&sockaddr, sizeof(sockaddr)) < 0) {
         std::cerr << "Unable to bind socket" << std::endl;
+        return -1;
     }
 
+    return sockfd;
+}
+
+int OpenRawSocket(const char *input_interface)
+{    
+    int sockfd;
+    int err_code;
+    
+    sockfd = socket(AF_INET, SOCK_RAW, IPPROTO_RAW);
+    if (sockfd < 0) {
+        std::cerr << "Unable to create socket" << std::endl;
+        return -1;
+    }
+    
+    // setsockopt
+    err_code = setsockopt(sockfd, IPPROTO_IP, IP_RECVIF, input_interface, 8);
+    if (err_code) {
+        std::cerr << "Unable to bind socket" << errno << std::endl;
+        return -1;
+    }
+    
     return sockfd;
 }

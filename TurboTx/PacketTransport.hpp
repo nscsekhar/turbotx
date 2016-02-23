@@ -28,7 +28,6 @@ class PacketTransport {
     
     
  public:
-    PacketTransport(PacketProc *procptr);
     PacketTransport(const char *input_if, PacketProc *procptr);
     ~PacketTransport();
     void run();

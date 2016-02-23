@@ -14,12 +14,30 @@
 #include <event2/thread.h>
 #include <boost/circular_buffer.hpp>
 #include <boost/lockfree/spsc_queue.hpp>
-#include "PacketRing.hpp"
+#include "StateManager.hpp"
 #include "PacketBuf.hpp"
 #include "Utils.hpp"
 
+struct TtpHdr {
+    int ifl_index_;
+    // TODO
+};
+
+struct HostHdr {
+    int ifl_index_;
+    int queue_num_;
+    int misc_;
+    // TODO
+};
+
 class PacketProc {
- private:
+public:
+    enum Status {
+        SUCCESS,
+        FAIL,
+    };
+
+private:
     struct event_base *base;
     struct event *enqueue_event;
     
@@ -29,20 +47,22 @@ class PacketProc {
     uint64_t num_enqueues;
     uint64_t num_dequeues;
     uint64_t num_drops;
+    uint64_t num_xform_fails;
     uint64_t num_sends;
     uint64_t num_send_fails;
     uint64_t num_enqueue_event_callbacks;
 
     int output_sockfd_;
+    struct sockaddr_in si_other;
+
+    StateManager *state_managerp_;
+    
+    Status TransformPacket(PacketBuf *pkt);
+    void TransmitPacket(PacketBuf *pkt);
 
  public:
-    enum Status {
-        SUCCESS,
-        FAIL,
-    };
 
-    PacketProc();
-    PacketProc(const char *output_if);
+    PacketProc(const char *output_if, StateManager *state_manager);
     ~PacketProc();
     
     PacketProc::Status send(PacketBuf *pkt);

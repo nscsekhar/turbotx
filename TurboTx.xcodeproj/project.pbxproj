@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CA1AC01E1C6E9CDB00C849AA /* StateManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA1AC01C1C6E9CDB00C849AA /* StateManager.cpp */; };
+		CA1AC02E1C767D0700C849AA /* gtest_main.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CA1AC02D1C767D0700C849AA /* gtest_main.a */; };
+		CA1AC0311C767D5400C849AA /* test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA1AC02F1C767D5400C849AA /* test.cpp */; };
 		CA2DACE41C6AA99500F7B8E6 /* libevent_pthreads.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CA2DACE21C6AA99500F7B8E6 /* libevent_pthreads.a */; };
 		CA2DACE51C6AA99500F7B8E6 /* libevent.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CA2DACE31C6AA99500F7B8E6 /* libevent.a */; };
 		CA86DD6E1C5D8D61008AEFE8 /* PacketTransport.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA86DD6C1C5D8D61008AEFE8 /* PacketTransport.cpp */; };
@@ -16,13 +19,20 @@
 		CA86DD791C62C1D3008AEFE8 /* libboost_thread-mt.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CA86DD781C62C1D3008AEFE8 /* libboost_thread-mt.a */; };
 		CA86DD7C1C6409E0008AEFE8 /* Utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA86DD7A1C6409E0008AEFE8 /* Utils.cpp */; };
 		CABD3DFC1C3A00D2009E68BD /* PacketBuf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CABD3DFA1C3A00D2009E68BD /* PacketBuf.cpp */; };
-		CABD3DFF1C3A0170009E68BD /* PacketRing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CABD3DFD1C3A0170009E68BD /* PacketRing.cpp */; };
-		CABD3E0E1C3B8E7A009E68BD /* PacketRing.hpp in Sources */ = {isa = PBXBuildFile; fileRef = CABD3DFE1C3A0170009E68BD /* PacketRing.hpp */; };
 		CABD3E0F1C3B8E7A009E68BD /* PacketBuf.hpp in Sources */ = {isa = PBXBuildFile; fileRef = CABD3DFB1C3A00D2009E68BD /* PacketBuf.hpp */; };
 		CAF323A41C30B98500075B19 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CAF323A31C30B98500075B19 /* main.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		CA1AC0241C767CBA00C849AA /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
 		CABD3E051C3B5134009E68BD /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -62,6 +72,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		CA1AC01C1C6E9CDB00C849AA /* StateManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StateManager.cpp; sourceTree = "<group>"; };
+		CA1AC01D1C6E9CDB00C849AA /* StateManager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = StateManager.hpp; sourceTree = "<group>"; };
+		CA1AC0261C767CBA00C849AA /* TurboTxTest */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = TurboTxTest; sourceTree = BUILT_PRODUCTS_DIR; };
+		CA1AC02D1C767D0700C849AA /* gtest_main.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = gtest_main.a; path = ../../../temp/googletest/googletest/make/gtest_main.a; sourceTree = "<group>"; };
+		CA1AC02F1C767D5400C849AA /* test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = test.cpp; sourceTree = "<group>"; };
+		CA1AC0301C767D5400C849AA /* test.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = test.hpp; sourceTree = "<group>"; };
 		CA2DACE21C6AA99500F7B8E6 /* libevent_pthreads.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libevent_pthreads.a; path = ../../../../../../../usr/local/lib/libevent_pthreads.a; sourceTree = "<group>"; };
 		CA2DACE31C6AA99500F7B8E6 /* libevent.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libevent.a; path = ../../../../../../../usr/local/lib/libevent.a; sourceTree = "<group>"; };
 		CA86DD6C1C5D8D61008AEFE8 /* PacketTransport.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PacketTransport.cpp; sourceTree = "<group>"; };
@@ -77,8 +93,6 @@
 		CA86DD7B1C6409E0008AEFE8 /* Utils.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Utils.hpp; sourceTree = "<group>"; };
 		CABD3DFA1C3A00D2009E68BD /* PacketBuf.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PacketBuf.cpp; sourceTree = "<group>"; };
 		CABD3DFB1C3A00D2009E68BD /* PacketBuf.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PacketBuf.hpp; sourceTree = "<group>"; };
-		CABD3DFD1C3A0170009E68BD /* PacketRing.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PacketRing.cpp; sourceTree = "<group>"; };
-		CABD3DFE1C3A0170009E68BD /* PacketRing.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PacketRing.hpp; sourceTree = "<group>"; };
 		CABD3E071C3B5134009E68BD /* TurboTx1 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = TurboTx1; sourceTree = BUILT_PRODUCTS_DIR; };
 		CAF323A01C30B98500075B19 /* TurboTx */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = TurboTx; sourceTree = BUILT_PRODUCTS_DIR; };
 		CAF323A31C30B98500075B19 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
@@ -87,6 +101,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		CA1AC0231C767CBA00C849AA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CA1AC02E1C767D0700C849AA /* gtest_main.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CABD3E041C3B5134009E68BD /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -122,14 +144,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CA1AC0271C767CBA00C849AA /* TurboTxTest */ = {
+			isa = PBXGroup;
+			children = (
+				CA1AC02F1C767D5400C849AA /* test.cpp */,
+				CA1AC0301C767D5400C849AA /* test.hpp */,
+			);
+			path = TurboTxTest;
+			sourceTree = "<group>";
+		};
 		CAF323971C30B98500075B19 = {
 			isa = PBXGroup;
 			children = (
+				CA1AC02D1C767D0700C849AA /* gtest_main.a */,
 				CA2DACE21C6AA99500F7B8E6 /* libevent_pthreads.a */,
 				CA2DACE31C6AA99500F7B8E6 /* libevent.a */,
 				CA86DD781C62C1D3008AEFE8 /* libboost_thread-mt.a */,
 				CA86DD751C6288BE008AEFE8 /* libboost_system.a */,
 				CAF323A21C30B98500075B19 /* TurboTx */,
+				CA1AC0271C767CBA00C849AA /* TurboTxTest */,
 				CAF323A11C30B98500075B19 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -141,6 +174,7 @@
 				CAF323AE1C30B9E500075B19 /* TurboTxSource */,
 				CAF323B91C30BA0300075B19 /* TurboTxDest */,
 				CABD3E071C3B5134009E68BD /* TurboTx1 */,
+				CA1AC0261C767CBA00C849AA /* TurboTxTest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -153,12 +187,12 @@
 				CA86DD6D1C5D8D61008AEFE8 /* PacketTransport.hpp */,
 				CA86DD721C5FDB23008AEFE8 /* PacketIO.cpp */,
 				CA86DD731C5FDB23008AEFE8 /* PacketIO.hpp */,
+				CA1AC01C1C6E9CDB00C849AA /* StateManager.cpp */,
+				CA1AC01D1C6E9CDB00C849AA /* StateManager.hpp */,
 				CA86DD6F1C5D8D78008AEFE8 /* PacketProc.cpp */,
 				CA86DD701C5D8D78008AEFE8 /* PacketProc.hpp */,
 				CABD3DFA1C3A00D2009E68BD /* PacketBuf.cpp */,
 				CABD3DFB1C3A00D2009E68BD /* PacketBuf.hpp */,
-				CABD3DFD1C3A0170009E68BD /* PacketRing.cpp */,
-				CABD3DFE1C3A0170009E68BD /* PacketRing.hpp */,
 				CA86DD7A1C6409E0008AEFE8 /* Utils.cpp */,
 				CA86DD7B1C6409E0008AEFE8 /* Utils.hpp */,
 				CA86DD771C62BD22008AEFE8 /* Todo List */,
@@ -169,6 +203,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		CA1AC0251C767CBA00C849AA /* TurboTxTest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CA1AC02A1C767CBA00C849AA /* Build configuration list for PBXNativeTarget "TurboTxTest" */;
+			buildPhases = (
+				CA1AC0221C767CBA00C849AA /* Sources */,
+				CA1AC0231C767CBA00C849AA /* Frameworks */,
+				CA1AC0241C767CBA00C849AA /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TurboTxTest;
+			productName = TurboTxTest;
+			productReference = CA1AC0261C767CBA00C849AA /* TurboTxTest */;
+			productType = "com.apple.product-type.tool";
+		};
 		CABD3E061C3B5134009E68BD /* TurboTx1 */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = CABD3E0B1C3B5134009E68BD /* Build configuration list for PBXNativeTarget "TurboTx1" */;
@@ -246,6 +297,9 @@
 				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = "Surya Nimmagadda";
 				TargetAttributes = {
+					CA1AC0251C767CBA00C849AA = {
+						CreatedOnToolsVersion = 7.2;
+					};
 					CABD3E061C3B5134009E68BD = {
 						CreatedOnToolsVersion = 7.2;
 					};
@@ -330,11 +384,20 @@
 				CAF323AD1C30B9E500075B19 /* TurboTxSource */,
 				CAF323B81C30BA0300075B19 /* TurboTxDest */,
 				CABD3E061C3B5134009E68BD /* TurboTx1 */,
+				CA1AC0251C767CBA00C849AA /* TurboTxTest */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
+		CA1AC0221C767CBA00C849AA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CA1AC0311C767D5400C849AA /* test.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CABD3E031C3B5134009E68BD /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -346,15 +409,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CABD3E0E1C3B8E7A009E68BD /* PacketRing.hpp in Sources */,
 				CABD3E0F1C3B8E7A009E68BD /* PacketBuf.hpp in Sources */,
 				CA86DD741C5FDB23008AEFE8 /* PacketIO.cpp in Sources */,
 				CA86DD6E1C5D8D61008AEFE8 /* PacketTransport.cpp in Sources */,
 				CA86DD7C1C6409E0008AEFE8 /* Utils.cpp in Sources */,
 				CABD3DFC1C3A00D2009E68BD /* PacketBuf.cpp in Sources */,
+				CA1AC01E1C6E9CDB00C849AA /* StateManager.cpp in Sources */,
 				CAF323A41C30B98500075B19 /* main.cpp in Sources */,
 				CA86DD711C5D8D78008AEFE8 /* PacketProc.cpp in Sources */,
-				CABD3DFF1C3A0170009E68BD /* PacketRing.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -375,6 +437,21 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
+		CA1AC02B1C767CBA00C849AA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				"HEADER_SEARCH_PATHS[arch=*]" = /Users/nscsekhar/Desktop/Surya/temp/googletest/googletest/include;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		CA1AC02C1C767CBA00C849AA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		CABD3E0C1C3B5134009E68BD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -527,6 +604,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		CA1AC02A1C767CBA00C849AA /* Build configuration list for PBXNativeTarget "TurboTxTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CA1AC02B1C767CBA00C849AA /* Debug */,
+				CA1AC02C1C767CBA00C849AA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		CABD3E0B1C3B5134009E68BD /* Build configuration list for PBXNativeTarget "TurboTx1" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

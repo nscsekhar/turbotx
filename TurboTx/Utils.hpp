@@ -19,5 +19,6 @@
 #include <iostream>
 
 int OpenSocket(const char *input_interface, short port);
+int OpenRawSocket(const char *input_interface);
 
 #endif /* Utils_hpp */

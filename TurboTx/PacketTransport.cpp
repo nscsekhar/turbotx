@@ -11,22 +11,6 @@
 #include <sys/socket.h>
 #include "Utils.hpp"
 
-PacketTransport::PacketTransport(PacketProc *procptr)
-{
-    pkt = new PacketBuf;
-    
-    if (!pkt) {
-        std::cout << "Failed to allocate packet buffer" << std::endl;
-        exit(EXIT_FAILURE);
-    } else {
-        num_pkts_allocated++;
-    }
-
-    input_sockfd_ = OpenSocket("vboxnet0", 6666);
-    procp_ = procptr;
-    num_recvs = num_recv_errors = num_pkts_allocated = 0;
-}
-
 PacketTransport::PacketTransport(const char *input_if, PacketProc *procptr)
 {
     pkt = new PacketBuf;
@@ -39,6 +23,12 @@ PacketTransport::PacketTransport(const char *input_if, PacketProc *procptr)
     }
 
     input_sockfd_ = OpenSocket(input_if, 6666);
+    
+    if (input_sockfd_ < 0) {
+        std::cout << "Failed to init input socket" << std::endl;
+        exit(EXIT_FAILURE);
+    }
+
     procp_ = procptr;
     num_recvs = num_recv_errors = num_pkts_allocated = 0;
 }

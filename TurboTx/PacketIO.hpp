@@ -14,15 +14,16 @@
 #include <boost/bind.hpp>
 #include "PacketTransport.hpp"
 #include "PacketProc.hpp"
+#include "StateManager.hpp"
 
 class PacketIO {
 
  private:
     PacketProc proc_;
     PacketTransport transport_;
+    StateManager state_manager_;
 
  public:
-    PacketIO();
     PacketIO(const char *input_interface, const char *output_interface);
     ~PacketIO();
     void run();

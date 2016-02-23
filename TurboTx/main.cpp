@@ -8,7 +8,6 @@
 #include <iostream>
 #include <boost/asio.hpp>
 #include "PacketIO.hpp"
-#include "PacketRing.hpp"
 
 int main()
 {
